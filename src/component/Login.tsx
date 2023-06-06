@@ -30,7 +30,7 @@ export default function Login() {
                 <div className='text-center p-3'>
                     <p className='text-xl font-serif'>UserName <input type="text" placeholder='Username...' name='UserName' onChange={handelLoginchange} className='border-2 border-black my-2 rounded-md' /></p>
                     <p className='text-xl font-serif'>Password <input type="password" placeholder='Password...' name='Password' onChange={handelLoginchange} className='border-2 border-black my-2 rounded-md' /></p>
-                    <button onClick={handelLogin} className='border-2 border-black my-2 rounded-md font-serif p-1 text-xl bg-blue-400'>Log in</button>
+                    <button onClick={handelLogin} className='border-2 border-black my-2 rounded-md font-serif text-white font-semiboldbold p-1 text-xl bg-blue-600 hover:bg-blue-500'>Log in</button>
                 </div>
             </fieldset>
         </div>

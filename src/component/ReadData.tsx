@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import axios from 'axios';
 import SingleData from '../CURD/SingleData';
 import { PersonPropsData } from '../interface/type';
@@ -11,18 +11,16 @@ type Token = {
 }
 
 export default function ReadData() {
-    const location = useLocation<Token>()
-    const [token] = useState<Token>(location.state)
+    const history=useHistory();
     const [datas, setData] = useState<PersonPropsData[]>([])
 
     useEffect(() => {
         axios.get("http://localhost:4000/read").then(res => {
             setData(res.data.record)
         })
-        console.log(sessionStorage.getItem("Token"))
     }, [])
 
-    if (!token) {
+    if (!sessionStorage.getItem("Token")) {
         return (<Nomatch />)
     }
     return (
@@ -34,6 +32,7 @@ export default function ReadData() {
                     ))
                 }
             </ul>
+            <button onClick={() => { sessionStorage.removeItem("Token");history.push("/") }}>Log Out</button>
         </div>
     )
 }
