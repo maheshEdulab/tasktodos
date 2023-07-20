@@ -1,26 +1,23 @@
 import { useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import SingleData from '../CURD/SingleData';
 import { PersonPropsData } from '../interface/type';
 import Nomatch from './Nomatch';
-
-
-type Token = {
-    Token: string
-}
+import useAuth from './useAuth';
 
 export default function ReadData() {
-    const history=useHistory();
+    const [isLoggedIn ,logout]=useAuth();
+    const history = useHistory();
     const [datas, setData] = useState<PersonPropsData[]>([])
-
+    console.log("Hello World")
     useEffect(() => {
         axios.get("http://localhost:4000/read").then(res => {
             setData(res.data.record)
         })
     }, [])
 
-    if (!sessionStorage.getItem("Token")) {
+    if (!isLoggedIn) {
         return (<Nomatch />)
     }
     return (
@@ -32,7 +29,7 @@ export default function ReadData() {
                     ))
                 }
             </ul>
-            <button onClick={() => { sessionStorage.removeItem("Token");history.push("/") }}>Log Out</button>
+            <button onClick={logout as ()=>void}>Log Out</button>
         </div>
     )
 }

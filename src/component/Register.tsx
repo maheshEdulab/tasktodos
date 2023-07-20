@@ -5,6 +5,7 @@ import { PersonProps } from '../interface/type';
 
 
 export default function Register() {
+
     const history = useHistory();
     const [person, setPerson] = React.useState<PersonProps>({ Id: "", Name: "", UserName: "", Password: "" })
 
@@ -17,8 +18,9 @@ export default function Register() {
         await axios.post('http://localhost:4000/create', person)
         setPerson({ Id: "", Name: "", UserName: "", Password: "" })
         history.push('login')
+        
     }
-
+    
     return (
         <div className='justify-center flex '>
             <fieldset className='border-2 border-black my-40 w-16 bg-gray-100 rounded-md'>
@@ -32,7 +34,6 @@ export default function Register() {
                     </form>
                     <Link to={'login'} className='text-blue-500 text-xl hover:text-blue-600 hover:underline '>Log In</Link>
                 </div>
-
             </fieldset>
         </div>
     )
